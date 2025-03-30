@@ -1,20 +1,33 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 
-const Tile = ({ isClicked, onClick }) => {
+const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, setWinnings, setGameActive, mineProbability, betAmount }) => {
   const [clicked, setClicked] = useState(false);
   const [icon, setIcon] = useState(null);
 
   // Handle the click effect animation
   const handleClick = () => {
-    setClicked(true);
-    onClick();
+    if (!gameActive || clickedTiles.has(index)) return;
 
-    // Randomly choose between gem or bomb
-    setTimeout(() => {
-      const randomIcon = Math.random() < 0.9 ? "gem" : "bomb";
-      setIcon(randomIcon);
-    }, 150); // 100ms delay before setting the icon
+    setClicked(true);
+
+    const isMine = Math.random() < mineProbability;
+    if (isMine) {
+      setClickedTiles(new Set());
+      setWinnings(0);
+      setGameActive(false);
+      setTimeout(() => {
+        setIcon("bomb");
+      }, 150);
+    } else {
+      const newClickedTiles = new Set(clickedTiles).add(index);
+      setClickedTiles(newClickedTiles);
+      const newWinnings = betAmount * newClickedTiles.size * 0.2;
+      setWinnings(newWinnings);
+      setTimeout(() => {
+        setIcon("gem");
+      }, 150);
+    }
 
     // Reset the clicked state after the animation ends (0.2s)
     setTimeout(() => setClicked(false), 200);

@@ -5,7 +5,7 @@ import './styles.css'; // Import the CSS file
 
 const App = () => {
   const [wallet, setWallet] = useState(() => {
-    return parseFloat(localStorage.getItem("wallet")) || 100;
+    return parseFloat(localStorage.getItem("wallet")) || 1000;
   });
 
   useEffect(() => {

@@ -10,7 +10,6 @@ const Controls = ({
   winnings,
   gameActive,
   wallet,
-  pickRandomTile,
 }) => {
   const handleHalfBet = () => {
     setBetAmount(Math.max(1, Math.floor(betAmount / 2)));
@@ -61,7 +60,7 @@ const Controls = ({
       {gameActive && (
         <>
           <button onClick={handleCashOut}>Cash Out</button>
-          <button onClick={pickRandomTile}>Pick a Random Tile</button>
+          <button>Pick a Random Tile</button>
         </>
       )}
 

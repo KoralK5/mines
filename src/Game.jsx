@@ -9,29 +9,12 @@ const TOTAL_TILES = GRID_SIZE * GRID_SIZE;
 
 const Game = ({ wallet, setWallet }) => {
   const [betAmount, setBetAmount] = useState(10);
-  const [numMines, setNumMines] = useState(3);
+  const [numMines, setNumMines] = useState(1);
   const [clickedTiles, setClickedTiles] = useState(new Set());
   const [winnings, setWinnings] = useState(0);
   const [gameActive, setGameActive] = useState(false);
 
   const mineProbability = numMines / TOTAL_TILES;
-
-  const handleTileClick = (index) => {
-    if (!gameActive || clickedTiles.has(index)) return;
-
-    const isMine = Math.random() < mineProbability;
-    if (isMine) {
-      alert("💥 You hit a mine! Game Over.");
-      setClickedTiles(new Set());
-      setWinnings(0);
-      setGameActive(false);
-    } else {
-      const newClickedTiles = new Set(clickedTiles).add(index);
-      setClickedTiles(newClickedTiles);
-      const newWinnings = betAmount * newClickedTiles.size * 0.2;
-      setWinnings(newWinnings);
-    }
-  };
 
   const handleStartGame = () => {
     if (betAmount > wallet) {
@@ -48,16 +31,6 @@ const Game = ({ wallet, setWallet }) => {
     alert(`🎉 You cashed out with $${winnings.toFixed(2)}!`);
     setWallet(wallet + winnings);
     setGameActive(false);
-  };
-
-  const pickRandomTile = () => {
-    const availableTiles = [...Array(TOTAL_TILES).keys()].filter(
-      (tile) => !clickedTiles.has(tile)
-    );
-    if (availableTiles.length > 0) {
-      const randomTile = availableTiles[Math.floor(Math.random() * availableTiles.length)];
-      handleTileClick(randomTile);
-    }
   };
 
   return (
@@ -85,7 +58,6 @@ const Game = ({ wallet, setWallet }) => {
             winnings={winnings}
             gameActive={gameActive}
             wallet={wallet}
-            pickRandomTile={pickRandomTile}
           />
         </Paper>
         <Paper
@@ -103,7 +75,18 @@ const Game = ({ wallet, setWallet }) => {
           }}
         >
           {Array.from({ length: TOTAL_TILES }, (_, index) => (
-            <Tile key={index} isClicked={clickedTiles.has(index)} onClick={() => handleTileClick(index)} />
+            <Tile
+              key={index}
+              isClicked={clickedTiles.has(index)}
+              gameActive={gameActive}
+              clickedTiles={clickedTiles}
+              index={index}
+              setClickedTiles={setClickedTiles}
+              setWinnings={setWinnings}
+              setGameActive={setGameActive}
+              mineProbability={mineProbability}
+              betAmount={betAmount}
+            />
           ))}
         </Paper>
       </Box>
