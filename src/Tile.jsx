@@ -16,6 +16,10 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
       setClickedTiles(new Set());
       setWinnings(0);
       setGameActive(false);
+
+      const audio = new Audio("/bomb.mp3");
+      audio.play();
+    
       setTimeout(() => {
         setIcon("bomb");
       }, 150);
@@ -24,6 +28,10 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
       setClickedTiles(newClickedTiles);
       const newWinnings = betAmount * newClickedTiles.size * 0.2;
       setWinnings(newWinnings);
+
+      const audio = new Audio("/gem.mp3");
+      audio.play();
+
       setTimeout(() => {
         setIcon("gem");
       }, 150);
