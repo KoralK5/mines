@@ -33,7 +33,7 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
         setClickedTiles(new Set());
         setIcons(Array(25).fill(null));
         setAvailable(true);
-      }, 2000);
+      }, 1000);
     } else {
       const newClickedTiles = new Set(clickedTiles).add(index);
       setClickedTiles(newClickedTiles);

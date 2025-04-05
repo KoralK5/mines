@@ -33,11 +33,9 @@ const Game = ({ wallet, setWallet }) => {
   const handleCashOut = () => {
     setWallet(wallet + winnings);
     setGameActive(false);
-    setTimeout(() => {
-      setClickedTiles(new Set());
-      setIcons(Array(25).fill(null));
-      setAvailable(true);
-    }, 2000);
+    setClickedTiles(new Set());
+    setIcons(Array(25).fill(null));
+    setAvailable(true);
   };
 
   return (
@@ -65,6 +63,7 @@ const Game = ({ wallet, setWallet }) => {
             gameActive={gameActive}
             wallet={wallet}
             available={available}
+            clickedTiles={clickedTiles}
           />
         </Paper>
         <Paper

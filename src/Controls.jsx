@@ -13,6 +13,7 @@ const Controls = ({
   gameActive,
   wallet,
   available,
+  clickedTiles,
 }) => {
   const convertCadToBitcoin = (cadAmount) => {
     const conversionRate = 0.0000083; // 1 CAD = 0.0000083 BTC
@@ -194,34 +195,77 @@ const Controls = ({
       </Box>
 
       {/* Mines Input */}
-      <Typography sx={{ mb: 0.5, fontSize: "18px", color: "#b1bad3", fontWeight: "bold" }}>Mines</Typography>
-      <TextField
-        type="number"
-        value={numMines}
-        onChange={(e) => setNumMines(parseInt(e.target.value) || 1)}
-        onBlur={() => {
-          if (numMines > 24) {
-            setNumMines(24);
-          }
-        }}
-        InputProps={{
-          sx: {
-            backgroundColor: "#0f212e",
-            borderRadius: "3px",
-            border: "3px solid #2e4552",
-            input: {
-              color: "white",
-              my: 0.5,
+      <Box display="flex" justifyContent="space-between" mb={0.5}>
+        <Box width="50%">
+          <Typography
+            sx={{
+              fontSize: "18px",
+              color: "#b1bad3",
+              fontWeight: "bold",
+            }}
+          >
+            Mines
+          </Typography>
+        </Box>
+
+        {gameActive && (
+          <Box width="50%" textAlign="left">
+            <Typography
+              sx={{
+                fontSize: "18px",
+                color: "#b1bad3",
+                fontWeight: "bold",
+                ml: 1,
+              }}
+            >
+              Gems
+            </Typography>
+          </Box>
+        )}
+      </Box>
+
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+        mb={2}
+      >
+        <TextField
+          value={numMines}
+          onChange={(e) => setNumMines(parseInt(e.target.value) || 1)}
+          onBlur={() => {
+            if (numMines > 24) setNumMines(24);
+          }}
+          InputProps={{
+            sx: {
+              backgroundColor: gameActive ? "#2e4552" : "#0f212e",
+              borderRadius: "3px",
+              border: gameActive ? "none" : "3px solid #2e4552",
+              input: { color: "white", my: 0.5 },
             },
-          },
-        }}
-        size="small"
-        sx={{
-          mb: 2,
-          width: "100%",
-        }}
-        disabled={gameActive}
-      />
+          }}
+          size="small"
+          sx={{ width: gameActive ? "50%" : "100%" }}
+          disabled={gameActive}
+        />
+
+        {gameActive && (
+          <TextField
+            value={25 - numMines - clickedTiles.size}
+            InputProps={{
+              sx: {
+                backgroundColor: "#2e4552",
+                borderRadius: "3px",
+                input: { color: "white", my: 0.5 },
+              },
+            }}
+            size="small"
+            sx={{ width: "50%" }}
+            disabled={gameActive}
+          />
+        )}
+      </Box>
 
       {/* Start / Cash Out Buttons */}
       {!gameActive ? (
