@@ -8,9 +8,10 @@ const GRID_SIZE = 5;
 const TOTAL_TILES = GRID_SIZE * GRID_SIZE;
 
 const Game = ({ wallet, setWallet }) => {
-  const [betAmount, setBetAmount] = useState(10);
+  const [betAmount, setBetAmount] = useState(10.00);
   const [numMines, setNumMines] = useState(1);
   const [clickedTiles, setClickedTiles] = useState(new Set());
+  const [icons, setIcons] = useState(new Set());
   const [winnings, setWinnings] = useState(0);
   const [gameActive, setGameActive] = useState(false);
 
@@ -86,6 +87,7 @@ const Game = ({ wallet, setWallet }) => {
               setGameActive={setGameActive}
               mineProbability={mineProbability}
               betAmount={betAmount}
+              setIcons={setIcons}
             />
           ))}
         </Paper>

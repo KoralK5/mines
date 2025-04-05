@@ -13,9 +13,9 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
 
     const isMine = Math.random() < mineProbability;
     if (isMine) {
-      setClickedTiles(new Set());
+      const newClickedTiles = new Set(clickedTiles).add(index);
+      setClickedTiles(newClickedTiles);
       setWinnings(0);
-      setGameActive(false);
 
       const audio = new Audio("/bomb.mp3");
       audio.play();
@@ -23,6 +23,12 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
       setTimeout(() => {
         setIcon("bomb");
       }, 150);
+
+      setGameActive(false);
+
+      setTimeout(() => {
+        setClickedTiles(new Set());
+      }, 2000); // Reset clicked tiles after 2 seconds
     } else {
       const newClickedTiles = new Set(clickedTiles).add(index);
       setClickedTiles(newClickedTiles);
