@@ -11,9 +11,10 @@ const Game = ({ wallet, setWallet }) => {
   const [betAmount, setBetAmount] = useState(10.00);
   const [numMines, setNumMines] = useState(1);
   const [clickedTiles, setClickedTiles] = useState(new Set());
-  const [icons, setIcons] = useState(new Set());
+  const [icons, setIcons] = useState(Array(TOTAL_TILES).fill(null));
   const [winnings, setWinnings] = useState(0);
   const [gameActive, setGameActive] = useState(false);
+  const [available, setAvailable] = useState(true);
 
   const mineProbability = numMines / TOTAL_TILES;
 
@@ -26,12 +27,17 @@ const Game = ({ wallet, setWallet }) => {
     setClickedTiles(new Set());
     setWinnings(0);
     setGameActive(true);
+    setAvailable(false);
   };
 
   const handleCashOut = () => {
-    alert(`🎉 You cashed out with $${winnings.toFixed(2)}!`);
     setWallet(wallet + winnings);
     setGameActive(false);
+    setTimeout(() => {
+      setClickedTiles(new Set());
+      setIcons(Array(25).fill(null));
+      setAvailable(true);
+    }, 2000);
   };
 
   return (
@@ -44,7 +50,6 @@ const Game = ({ wallet, setWallet }) => {
             color: "white",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
             alignItems: "center",
             borderRadius: "10px 0 0 0",
           }}
@@ -59,6 +64,7 @@ const Game = ({ wallet, setWallet }) => {
             winnings={winnings}
             gameActive={gameActive}
             wallet={wallet}
+            available={available}
           />
         </Paper>
         <Paper
@@ -87,7 +93,9 @@ const Game = ({ wallet, setWallet }) => {
               setGameActive={setGameActive}
               mineProbability={mineProbability}
               betAmount={betAmount}
+              icons={icons}
               setIcons={setIcons}
+              setAvailable={setAvailable}
             />
           ))}
         </Paper>

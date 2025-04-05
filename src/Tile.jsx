@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 
-const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, setWinnings, setGameActive, mineProbability, betAmount }) => {
+const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, setWinnings, setGameActive, mineProbability, betAmount, icons, setIcons, setAvailable }) => {
   const [clicked, setClicked] = useState(false);
-  const [icon, setIcon] = useState(null);
 
   // Handle the click effect animation
   const handleClick = () => {
@@ -15,20 +14,26 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
     if (isMine) {
       const newClickedTiles = new Set(clickedTiles).add(index);
       setClickedTiles(newClickedTiles);
-      setWinnings(0);
 
       const audio = new Audio("/bomb.mp3");
       audio.play();
     
       setTimeout(() => {
-        setIcon("bomb");
+        setIcons((prevIcons) => {
+          const newIcons = [...prevIcons];
+          newIcons[index] = "bomb";
+          return newIcons;
+        });
       }, 150);
 
+      setWinnings(0);
       setGameActive(false);
 
       setTimeout(() => {
         setClickedTiles(new Set());
-      }, 2000); // Reset clicked tiles after 2 seconds
+        setIcons(Array(25).fill(null));
+        setAvailable(true);
+      }, 2000);
     } else {
       const newClickedTiles = new Set(clickedTiles).add(index);
       setClickedTiles(newClickedTiles);
@@ -39,7 +44,11 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
       audio.play();
 
       setTimeout(() => {
-        setIcon("gem");
+        setIcons((prevIcons) => {
+          const newIcons = [...prevIcons];
+          newIcons[index] = "gem";
+          return newIcons;
+        });
       }, 150);
     }
 
@@ -97,14 +106,14 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
         }}
       >
         {/* Display Icon when clicked */}
-        {icon && (
+        {icons[index] && (
           <img
             src={
-              icon === "bomb"
+              icons[index] === "bomb"
                 ? "https://images-ext-1.discordapp.net/external/oM63MT9lIeRQESWl1VqSrewxe-TtrnmgVgqEizOp12k/https/i.ibb.co/7dmPZB6N/Screenshot-2025-03-29-204021.png?format=webp&quality=lossless&width=284&height=276"
                 : "https://images-ext-1.discordapp.net/external/niaCx1l2PpOYRAhNOu6or4qLLsTTyPuuXKQt6OCpqNI/https/i.ibb.co/z9qvxqX/Screenshot-2025-03-29-203955.png?format=webp&quality=lossless&width=299&height=260"
             }
-            alt={icon}
+            alt={icons[index]}
             style={{
               width: "60%",
               height: "60%",
