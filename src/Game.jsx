@@ -45,7 +45,7 @@ const Game = ({ wallet, setWallet }) => {
       setIcons(Array(25).fill(null));
       setAvailable(true);
       setDisplaySummary(false);
-    }, 5000);
+    }, 2000);
   };
 
   return (

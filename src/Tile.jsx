@@ -33,7 +33,7 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
         setClickedTiles(new Set());
         setIcons(Array(25).fill(null));
         setAvailable(true);
-      }, 5000);
+      }, 2000);
     } else {
       const newClickedTiles = new Set(clickedTiles).add(index);
       setClickedTiles(newClickedTiles);
@@ -60,7 +60,7 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
           setIcons(Array(25).fill(null));
           setAvailable(true);
           setDisplaySummary(false);
-        }, 5000);
+        }, 2000);
       }
     }
 
