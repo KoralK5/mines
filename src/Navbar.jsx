@@ -4,6 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatIcon from "@mui/icons-material/Chat";
+import { KeyboardArrowDown } from '@mui/icons-material';
 
 function convertCadToBitcoin(cadAmount) {
   const conversionRate = 0.0000083; // 1 CAD = 0.0000083 BTC
@@ -39,15 +40,18 @@ const Navbar = ({ wallet }) => {
 
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         {/* Left box with money and Bitcoin logo */}
-        <Box sx={{ display: 'flex', alignItems: 'center', backgroundColor: '#0f202f', padding: '8px', borderTopLeftRadius: '8px', borderBottomLeftRadius: '8px' }}>
-          <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', marginLeft: 1, marginRight: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', backgroundColor: '#0f202f', padding: '8px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}>
+          <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', marginLeft: 1.5 }}>
             <span style={{ marginRight: '8px' }}>{convertCadToBitcoin(wallet).toFixed(8)}</span>
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png" alt="Bitcoin" style={{ width: '20px', height: '20px' }} />
           </Typography>
+            <IconButton>
+              <KeyboardArrowDown sx={{ color: "#b1bad3" }} />
+            </IconButton>
         </Box>
 
         {/* Right box with "Wallet" text */}
-        <Box sx={{ backgroundColor: '#1475e1', padding: '8px', borderTopRightRadius: '8px', borderBottomRightRadius: '8px', color: 'white' }}>
+        <Box sx={{ backgroundColor: '#1475e1', padding: '12px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', color: 'white' }}>
           <Typography variant="h6" sx={{ textAlign: 'center', marginLeft: 1, marginRight: 1 }}>
             Wallet
           </Typography>

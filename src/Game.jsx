@@ -8,7 +8,7 @@ const GRID_SIZE = 5;
 const TOTAL_TILES = GRID_SIZE * GRID_SIZE;
 
 const Game = ({ wallet, setWallet }) => {
-  const [betAmount, setBetAmount] = useState(10.00);
+  const [betAmount, setBetAmount] = useState(5.00);
   const [numMines, setNumMines] = useState(1);
   const [clickedTiles, setClickedTiles] = useState(new Set());
   const [icons, setIcons] = useState(Array(TOTAL_TILES).fill(null));
