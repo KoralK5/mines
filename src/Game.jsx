@@ -95,6 +95,7 @@ const Game = ({ wallet, setWallet }) => {
               icons={icons}
               setIcons={setIcons}
               setAvailable={setAvailable}
+              numMines={numMines}
             />
           ))}
         </Paper>

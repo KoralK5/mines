@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 
-const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, setWinnings, setGameActive, mineProbability, betAmount, icons, setIcons, setAvailable }) => {
+const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, setWinnings, setGameActive, mineProbability, betAmount, icons, setIcons, setAvailable, numMines }) => {
   const [clicked, setClicked] = useState(false);
 
   // Handle the click effect animation
@@ -50,6 +50,16 @@ const Tile = ({ isClicked, gameActive, clickedTiles, index, setClickedTiles, set
           return newIcons;
         });
       }, 150);
+
+      if (newClickedTiles.size >= 25 - numMines) {
+        setWinnings(betAmount * 2);
+        setGameActive(false);
+        setTimeout(() => {
+          setClickedTiles(new Set());
+          setIcons(Array(25).fill(null));
+          setAvailable(true);
+        }, 1000);
+      }
     }
 
     // Reset the clicked state after the animation ends (0.2s)
