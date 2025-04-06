@@ -5,6 +5,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatIcon from "@mui/icons-material/Chat";
 import { KeyboardArrowDown } from '@mui/icons-material';
+import MenuIcon from "@mui/icons-material/Menu"; // Import MenuIcon
 
 function convertCadToBitcoin(cadAmount) {
   const conversionRate = 0.0000083; // 1 CAD = 0.0000083 BTC
@@ -31,6 +32,10 @@ const Navbar = ({ wallet }) => {
         paddingRight: '300px'
       }}
     >
+      <IconButton sx={{ color: "white", position: 'absolute', left: 15}}>
+        <MenuIcon sx={{ fontSize: '35px' }} /> {/* Increase the icon size */}
+      </IconButton>
+
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Stake-com-logo-high-res.jpg" alt="Stake" style={{ 
               width: '100px',
               height: '60px',
