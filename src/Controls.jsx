@@ -306,7 +306,6 @@ const Controls = ({
               size="small"
               sx = {{
                 flexGrow: 1,
-                color: "red",
                 backgroundColor: "#2e4552",
                 borderRadius: "6px",
                 input: { color: "white", fontSize: "18px", my: 0.5 },
