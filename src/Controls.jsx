@@ -235,7 +235,7 @@ const Controls = ({
           value={numMines}
           onChange={(e) => setNumMines(parseInt(e.target.value) || 1)}
           onBlur={() => {
-            if (numMines > 24) setNumMines(24);
+            if (numMines > 20) setNumMines(20);
           }}
           InputProps={{
             sx: {
