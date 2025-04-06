@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+        "source": "/casino/games/mines",
+        "destination": "/"
+        }
+    ]
+}
