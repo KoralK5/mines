@@ -21,7 +21,7 @@ const Game = ({ wallet, setWallet }) => {
   const mineProbability = numMines / TOTAL_TILES;
 
   const handleStartGame = () => {
-    if (betAmount > wallet) {
+    if (betAmount <= 0 || betAmount > wallet) {
       alert("❌ Not enough money to bet!");
       return;
     }

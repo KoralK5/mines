@@ -8,7 +8,7 @@ import { KeyboardArrowDown } from '@mui/icons-material';
 import MenuIcon from "@mui/icons-material/Menu"; // Import MenuIcon
 
 function convertCadToBitcoin(cadAmount) {
-  const conversionRate = 0.0000083; // 1 CAD = 0.0000083 BTC
+  const conversionRate = 0.0000084; // 1 CAD = 0.0000084 BTC
   return cadAmount * conversionRate;
 }
 
