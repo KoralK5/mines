@@ -3,6 +3,7 @@ import Tile from "./Tile";
 import Controls from "./Controls";
 import { Settings, SquareOutlined, BarChart, StarBorder } from "@mui/icons-material";
 import { Box, Paper, Typography, IconButton, Divider } from "@mui/material";
+import PaidIcon from '@mui/icons-material/Paid';
 
 const GRID_SIZE = 5;
 const TOTAL_TILES = GRID_SIZE * GRID_SIZE;
@@ -31,11 +32,17 @@ const Game = ({ wallet, setWallet }) => {
   };
 
   const handleCashOut = () => {
+    const audio = new Audio("/gem.mp3");
+    audio.play();
+
     setWallet(wallet + winnings);
     setGameActive(false);
-    setClickedTiles(new Set());
-    setIcons(Array(25).fill(null));
-    setAvailable(true);
+
+    setTimeout(() => {
+      setClickedTiles(new Set());
+      setIcons(Array(25).fill(null));
+      setAvailable(true);
+    }, 5000);
   };
 
   return (
@@ -78,8 +85,46 @@ const Game = ({ wallet, setWallet }) => {
             justifyContent: "center",
             alignItems: "center",
             borderRadius: "0 10px 0 0",
+            position: "relative", // Needed to position the overlay on top of the grid
           }}
         >
+          {/* Popup shown when gameActive is false */}
+          {!gameActive && !available && (
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                backgroundColor: "#2e4552", // Background color
+                padding: "10px 20px",
+                borderRadius: "8px",
+                fontWeight: "bold",
+                color: "#00e600", // Text color
+                zIndex: 10, // Ensure it stays on top
+                textAlign: "center", // Center the text
+                border: "2px solid #00e600", // Rounded green border
+                fontSize: "100px",
+                px: 8,
+                py: 3,
+              }}
+            >
+              {(winnings / betAmount).toFixed(2)}×
+              <Box
+                sx={{
+                  width: "40%",
+                  marginX: "auto", // Center the separator
+                  height: "2px",
+                  backgroundColor: "#b1bad3", // Separator color
+                  marginY: "8px", // Space around the line
+                }}
+              />
+              <Box sx={{ fontSize: "50px", fontWeight: "bold", display: "flex", justifyContent: "center", alignItems: "center", gap: "8px" }}>
+                <span>{winnings.toFixed(2)}</span>
+                <PaidIcon sx={{ color: "#83ec1e" }} />
+              </Box>
+            </Box>
+          )}
           {Array.from({ length: TOTAL_TILES }, (_, index) => (
             <Tile
               key={index}
@@ -99,6 +144,7 @@ const Game = ({ wallet, setWallet }) => {
             />
           ))}
         </Paper>
+
       </Box>
       <Paper
         sx={{
