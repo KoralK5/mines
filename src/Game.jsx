@@ -16,6 +16,7 @@ const Game = ({ wallet, setWallet }) => {
   const [winnings, setWinnings] = useState(0);
   const [gameActive, setGameActive] = useState(false);
   const [available, setAvailable] = useState(true);
+  const [displaySummary, setDisplaySummary] = useState(false);
 
   const mineProbability = numMines / TOTAL_TILES;
 
@@ -38,10 +39,12 @@ const Game = ({ wallet, setWallet }) => {
     setWallet(wallet + winnings);
     setGameActive(false);
 
+    setDisplaySummary(true);
     setTimeout(() => {
       setClickedTiles(new Set());
       setIcons(Array(25).fill(null));
       setAvailable(true);
+      setDisplaySummary(false);
     }, 5000);
   };
 
@@ -89,7 +92,7 @@ const Game = ({ wallet, setWallet }) => {
           }}
         >
           {/* Popup shown when gameActive is false */}
-          {!gameActive && !available && (
+          {displaySummary && (
             <Box
               sx={{
                 position: "absolute",
@@ -141,6 +144,7 @@ const Game = ({ wallet, setWallet }) => {
               setIcons={setIcons}
               setAvailable={setAvailable}
               numMines={numMines}
+              setDisplaySummary={setDisplaySummary}
             />
           ))}
         </Paper>
