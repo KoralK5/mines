@@ -123,8 +123,7 @@ const Controls = ({
           }}
           onBlur={() => {
             if (betAmount !== '') {
-              const formatted = parseFloat(betAmount).toFixed(2);
-              setBetAmount(formatted);
+              setBetAmount(Math.min(wallet, parseFloat(betAmount)).toFixed(2));
             }
           }}
           inputProps={{
